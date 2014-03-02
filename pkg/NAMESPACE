@@ -1,0 +1,7 @@
+export(
+    "csv2txt",
+    "extractTaxon",
+    "replaceTaxon",
+    "splitTranscript",
+    "trimTaxon"
+)
