@@ -2,6 +2,6 @@ export(
     "csv2txt",
     "extractTaxon",
     "replaceTaxon",
-    "splitTranscript",
+    "splitArray",
     "trimTaxon"
 )

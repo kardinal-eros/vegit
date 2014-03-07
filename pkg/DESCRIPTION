@@ -1,10 +1,10 @@
 Package: vegit
 Type: Package
 Title: Utilities for Managing the vegsoup-data Repository 
-Version: 0.1-0
+Version: 0.1-1
 Date: 2014-03-02
 Author: Roland Kaiser
-Maintainer: Roland Kaiser <kardinal.eros@gemail.com>
+Maintainer: Roland Kaiser <kardinal.eros@gmail.com>
 Depends: R (>= 3.0.1), stringr
 Description: Functions to maintain, extend and create data inside the vegsoup-data repository (https://github.com/kardinal-eros/vegsoup-data)
 License: GPL (>= 2)
@@ -14,5 +14,5 @@ LazyData: yes
 Collate: csv2txt.R
          extractTaxon.R
          replaceTaxon.R
-         splitTranscript.R
+         splitArray.R
          trimTaxon.R
