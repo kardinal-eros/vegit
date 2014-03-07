@@ -3,73 +3,87 @@
 \alias{csv2txt}
 \alias{extractTaxon}
 \alias{replaceTaxon}
-\alias{splitTranscript}
+\alias{splitArray}
 \alias{trimTaxon}
 
 \title{ Data as Text Arrays }
 
 \description{
-A set of function that help in developing \code{Vegsoup} objects from scanned vegetation tables. The functions operate on csv files, most likely output from
-OCR software, or on text arrays, themselves possibly developed from OCR
-transcripts. Text arrays are plain text files as could also be produced
-using a type writer (monospaced layout). Rows (lines) give species. Positions
-along each line, the columns, give the plots. Each plot aligns vertically.
-As a consequence, in a file corresponding to this type of text array each species
-with it's abundances in plots consist of a single line. There might also be a
-header part containing information on the sampling units, not the species. At least
-the header includes the plot names.
+This is a set of functions that help in developing \code{Vegsoup} objects from
+scanned vegetation tables. The functions operate on csv files, most likely output
+from OCR software, or on text arrays, themselves possibly developed from OCR
+transcripts. Text arrays, in this context, are tabular or matrix like plain text files
+Rows (lines) give species. Positions along each line, the columns, give the plots
+respectively the abundance/presence of a species in a plot. As a consequence, in a file
+corresponding to this type of text array each species with it's abundances in plots
+consist of a single line. For a particular plot all the abundances for the occurring
+species have width of one letter and each plot aligns vertically.
+There might also be a header part containing information on the sampling
+units, not the species. At least the header includes the plot names.
 }
 
 \usage{
 csv2txt(x, header.rows, sep = ";", overwrite = FALSE, ...)
+
 extractTaxon(x, n, blank = "blank")
-replaceTaxon(x, y, z, schema = c("taxon", "abbr"), where)
-splitTranscript(x, where, blank = "blank")
+
+replaceTaxon(x, y, z, schema = c("taxon", "abbr"), col, row = NULL,
+             file, keywords = FALSE, overwrite = FALSE)
+
+splitArray(x, col, row = NULL, blank = "blank")
+
 trimTaxon(x, pad = "@hl", sep = ";")
 }
 
 \arguments{
   \item{ x }{
-    character. Vector of strings where each species with its abundance along plots
-    (releves) as vector elements. (See \sQuote{Details}).
+    \code{character}. Text array with species abundances. (See \sQuote{Details}).
   }
   \item{ y }{
-    data.frame. Two column matrix of taxon matches.
+    \code{data.frame}. Two column matrix of taxon matches.
     See \code{\link[linktaxa:linktaxa]{linktaxa}}.
     See \code{extractTaxon}. First column is giving the source, second column the
     matched taxon.
   }
   \item{ z }{
-    data.frame. Taxonomic reference list, must hold literal column \code{"abbr"}.
+    \code{data.frame}. Taxonomic reference list, must hold literal column \code{"abbr"}.
   }
   \item{ n }{
-    integer. Rows (lines) and/or columns (position along a line) of text array
+    \code{integer}. Rows (lines) and/or columns (position along a line) of text array
     (\emph{cursor coordinates}).
   }
-  \item{ where }{
-    integer. Defines the width of characters (\code{\link{nchar}}) for splitting
-    the text array into species (left) and abundances (right) part.
+  \item{ row, col }{
+    \code{integer}. \code{col} defines the width of characters (\code{\link{nchar}})
+    for splitting vertically, \code{row} sets the horizontal split.
   }
   \item{ header.rows }{
-    character. Like above, the number of rows the header part claims in the table.
+    \code{character}. Like above, the number of rows the header part claims
+    in the table.
   }
   \item{ schema }{
-    character. Column names to queried from argument \code{z}.
+    \code{character}. Column names to queried from argument \code{z}.
+  }
+  \item{ keywords }{
+    logical. If \code{file} is given, wrap header and taxa block into paired
+    keywords ("BEGIN HEAD", "END HEAD", "BEGIN TABLE", "END TABLE").
   }
   \item{ blank }{
-    character. Value to be filled in instead of NAs.
+    \code{character}. Value to be filled in instead of NAs.
   }
   \item{ sep }{
-    character. Separator for \code{\link{read.csv}}.
+    \code{character}. Separator for \code{\link{read.csv}}.
   }
   \item{ pad }{
-    character. Pad to species names.
+    \code{character}. Pad to species names.
+  }
+  \item{ file }{
+    \code{logical}. Output file name.
   }
   \item{ overwrite }{
-    logical. Overwrite existing files.
+    \code{logical}. Overwrite existing files.
   }
   \item{ \dots }{
-    passed to \code{\link{read.csv}}.
+    arguments passed to \code{\link{read.csv}}.
   }
 }
 
@@ -79,9 +93,13 @@ Give summary.
 
 \describe{
 
-\item{ \code{splitTranscript} }{
+\item{ \code{splitArray} }{
 splits taxa and abundance part of text arrays and returns them as lists. The
-functions demands an argument \code{where}.
+functions demands an argument \code{col}. If also the \code{row} argument is given,
+\code{splitArray} will return a list of lists. First the header part, then the
+taxa block. If only \code{col} is supply, and it must, the functions splits
+the text array into first species and second abundances part, left and right
+blocks of columns in the array respectively.
 (see also argument \code{n} to functions extractTaxon read csv2txt.
 }
 
@@ -101,7 +119,8 @@ Fortunately, they are rarely present in printed sources.
 \item{ \code{replaceTaxon} }{
 replaces species name of source with an abbr(eviation) queried
 against a reference list. In order to accomplish this tasks three objects need
-to be supplied (see \sQuote{Arguments}).
+to be supplied (see \sQuote{Arguments}). If \code{keywords = TRUE} the functions
+places the keywords searched by \code{read.verbatim} of package \pkg{vegsoup}.
 }
 
 \item{ \code{extractTaxon} }{
