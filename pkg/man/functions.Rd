@@ -9,23 +9,25 @@
 \title{ Data as Text Arrays }
 
 \description{
-This is a set of functions that help in developing \code{Vegsoup} objects from
-scanned vegetation tables. The functions operate on csv files, most likely output
-from OCR software, or on text arrays, themselves possibly developed from OCR
-transcripts. Text arrays, in this context, are tabular or matrix like plain text files
-Rows (lines) give species. Positions along each line, the columns, give the plots
-respectively the abundance/presence of a species in a plot. As a consequence, in a file
-corresponding to this type of text array each species with it's abundances in plots
-consist of a single line. For a particular plot all the abundances for the occurring
-species have width of one letter and each plot aligns vertically.
-There might also be a header part containing information on the sampling
-units, not the species. At least the header includes the plot names.
+  This is a set of functions that help in the process of developing \code{Vegsoup} objects
+  as defined in the \pkg{vegsoup} package from scanned vegetation tables.
+  
+  The functions operate on CSV files, most likely output
+  from OCR software, or on text arrays, themselves possibly developed from OCR
+  transcripts. Text arrays, in this context, are tabular respectively matrix like plain text
+  files. Rows (lines) give species. Positions along each line, the columns, give the plots
+  respectively the abundance/presence of a species in a plot. As a consequence, in a file
+  corresponding to this type of text array each species with it's abundances in plots
+  consist of a single line. For a particular plot all the abundances for the therein
+  occurring species have width of one letter and each plot aligns vertically.
+  There might also be a header part containing information on the sampling
+  units, not the species. At least the header includes the plot names.
 }
 
 \usage{
 csv2txt(x, header.rows, sep = ";", overwrite = FALSE, ...)
 
-extractTaxon(x, n, blank = "blank")
+extractTaxon(x, col, row, blank = "blank")
 
 replaceTaxon(x, y, z, schema = c("taxon", "abbr"), col, row = NULL,
              file, keywords = FALSE, overwrite = FALSE)
@@ -41,20 +43,16 @@ trimTaxon(x, pad = "@hl", sep = ";")
   }
   \item{ y }{
     \code{data.frame}. Two column matrix of taxon matches.
-    See \code{\link[linktaxa:linktaxa]{linktaxa}}.
-    See \code{extractTaxon}. First column is giving the source, second column the
-    matched taxon.
+    See \code{\link[linktaxa:linktaxa]{linktaxa}}. First column is giving the source,
+    second column the matched taxon.
   }
   \item{ z }{
     \code{data.frame}. Taxonomic reference list, must hold literal column \code{"abbr"}.
   }
-  \item{ n }{
-    \code{integer}. Rows (lines) and/or columns (position along a line) of text array
-    (\emph{cursor coordinates}).
-  }
   \item{ row, col }{
-    \code{integer}. \code{col} defines the width of characters (\code{\link{nchar}})
-    for splitting vertically, \code{row} sets the horizontal split.
+    \code{integer}. \code{integer}. Row (lines) and column (position along a line) positions
+    of a text array (\emph{cursor coordinates}). \code{col} defines the width of characters
+    (\code{\link{nchar}}) for splitting horizontally, \code{row} sets the vertical split.
   }
   \item{ header.rows }{
     \code{character}. Like above, the number of rows the header part claims
@@ -64,8 +62,8 @@ trimTaxon(x, pad = "@hl", sep = ";")
     \code{character}. Column names to queried from argument \code{z}.
   }
   \item{ keywords }{
-    logical. If \code{file} is given, wrap header and taxa block into paired
-    keywords ("BEGIN HEAD", "END HEAD", "BEGIN TABLE", "END TABLE").
+    \code{logical}. If \code{file} is given and \code{keywords = TRUE} wrap header
+    and taxa block into paired keywords (BEGIN HEAD, END HEAD, BEGIN TABLE, END TABLE).
   }
   \item{ blank }{
     \code{character}. Value to be filled in instead of NAs.
@@ -74,7 +72,7 @@ trimTaxon(x, pad = "@hl", sep = ";")
     \code{character}. Separator for \code{\link{read.csv}}.
   }
   \item{ pad }{
-    \code{character}. Pad to species names.
+    \code{character}. Padding string to species names.
   }
   \item{ file }{
     \code{logical}. Output file name.
