@@ -116,7 +116,7 @@ Fortunately, they are rarely present in printed sources.
 
 \item{ \code{replaceTaxon} }{
 replaces species name of source with an abbr(eviation) queried
-against a reference list. In order to accomplish this tasks three objects need
+against a reference list. In order to accomplish this, three objects need
 to be supplied (see \sQuote{Arguments}). If \code{keywords = TRUE} the functions
 places the keywords searched by \code{read.verbatim} of package \pkg{vegsoup}.
 }
