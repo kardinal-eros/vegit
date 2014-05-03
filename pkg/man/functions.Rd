@@ -25,7 +25,7 @@
 }
 
 \usage{
-csv2txt(x, header.rows, sep = ";", overwrite = FALSE, ...)
+csv2txt(x, header.rows, merge.cols, sep = ";", overwrite = FALSE, ...)
 
 extractTaxon(x, col, row, blank = "blank")
 
@@ -55,8 +55,11 @@ trimTaxon(x, pad = "@hl", sep = ";")
     (\code{\link{nchar}}) for splitting horizontally, \code{row} sets the vertical split.
   }
   \item{ header.rows }{
-    \code{character}. Like above, the number of rows the header part claims
+    \code{integer}. Like above, the number of rows the header part claims
     in the table.
+  }
+  \item{ merge.cols }{
+    \code{integer}. Merge two or more columns into one (experimental!).
   }
   \item{ schema }{
     \code{character}. Column names to queried from argument \code{z}.

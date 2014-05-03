@@ -1,9 +1,14 @@
-csv2txt <- function (x, header.rows, sep = ";", overwrite = FALSE, ...) {
+csv2txt <- function (x, header.rows, merge.cols, sep = ";", overwrite = FALSE, ...) {
 	if (missing(header.rows))
 		stop("please define the number of header rows", call. = FALSE)
 	else
 		n <- as.integer(header.rows)
-
+	
+	if (!missing(merge.cols))
+		j <- as.vector(merge.cols)
+	else
+		j <- 1
+		
 	#	output filename
 	f <- gsub(".csv", ".txt", x, fixed = TRUE)
 	if (file.exists(f) & !overwrite)
@@ -11,19 +16,28 @@ csv2txt <- function (x, header.rows, sep = ";", overwrite = FALSE, ...) {
 			"\nuse overwrite = TRUE", call. = FALSE)
 	
 	#	read file
-	x <- read.csv(x, sep = sep, colClasses = "character", header = FALSE, ...)
-
+	x <- read.csv(x, sep = sep, colClasses = "character", header = FALSE)#, ...)
+	
+	if (length(j) > 1) {
+		x1 <- apply(x[, j], 1, function (x) paste(x, collapse = " "))
+		x2 <- x[ ,-j]
+		x <- as.matrix(cbind(x1, x2))
+	}
+	
 	#	transform header
 	#	format to equal width, add leading zeros (numbers)
 	#	or trailing dots (character strings)
-	l <- as.matrix(x)[1:n, 1]  # labels	
-	v <- as.matrix(x)[1:n, -1] # values
+	l <- as.matrix(x)[1:n, 1, drop = FALSE ]     # labels	
+	v <- as.matrix(x)[1:n, -1, drop = FALSE ] # values
 	
-	#	width of strings
-	w <- apply(apply(v, 2, function (x) sapply(x, nchar)), 1, max)
-	
-	#	type of value
-	t <- apply(v, 1, function (x) class(type.convert(x)))
+	#	width of strings (w) and type of value (t)
+	if (nrow(v) > 1) {
+		w <- apply(apply(v, 2, function (x) sapply(x, nchar)), 1, max)
+		t <- apply(v, 1, function (x) class(type.convert(x)))
+	} else {
+		w <- apply(v, 2, nchar)
+		t <- sapply(v, function (x) class(type.convert(x)))		
+	}
 	
 	for (i in seq_along(l)) {
 		if (t[i] == "integer")
@@ -32,7 +46,7 @@ csv2txt <- function (x, header.rows, sep = ";", overwrite = FALSE, ...) {
 			v[i, ] <- gsub("[[:space:]]", ".", sprintf(paste0("%-", w[i], "s"), v[i,]))
 	}
 	
-	#	for ease with use rbind
+	#	for ease use rbind
 	m <- c()
 	for (i in 1:nrow(v)) {
 		ii <- unlist(sapply(v[i, ], strsplit, ""))
@@ -40,8 +54,12 @@ csv2txt <- function (x, header.rows, sep = ";", overwrite = FALSE, ...) {
 	}
 	
 	#	assign labels
-	m <- cbind(rep.int(l, times = w), m)
-	m[duplicated(m[,1]),1] <- ""
+	if (n > 1) {
+		m <- cbind(rep.int(l, times = w), m)
+		m[duplicated(m[,1]),1] <- ""
+	} else {
+		m <- cbind(l, m)
+	}
 	
 	#	taxa block
 	#	there may be empty rows seperating blocks?
