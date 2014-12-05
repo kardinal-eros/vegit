@@ -25,7 +25,7 @@
 }
 
 \usage{
-csv2txt(x, header.rows, merge.cols, sep = ";", overwrite = FALSE, ...)
+csv2txt(x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE, collapse = " ", overwrite = FALSE, ...)
 
 extractTaxon(x, col, row, blank = "blank")
 
@@ -60,6 +60,15 @@ trimTaxon(x, pad = "@hl", sep = ";")
   }
   \item{ merge.cols }{
     \code{integer}. Merge two or more columns into one (experimental!).
+  }
+  \item{ width }{
+    \code{integer}. Additional space to adjust column width.
+  }
+  \item{ vertical }{
+    \code{logical}. Format header horizontal, then must define width.
+  }
+  \item{ collapse }{
+    \code{character}. Currently not used.
   }
   \item{ schema }{
     \code{character}. Column names to queried from argument \code{z}.
