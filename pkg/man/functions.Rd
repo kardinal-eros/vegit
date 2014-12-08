@@ -50,7 +50,7 @@ trimTaxon(x, pad = "@hl", sep = ";")
     \code{data.frame}. Taxonomic reference list, must hold literal column \code{"abbr"}.
   }
   \item{ row, col }{
-    \code{integer}. \code{integer}. Row (lines) and column (position along a line) positions
+    \code{integer}. Row (lines) and column (position along a line) positions
     of a text array (\emph{cursor coordinates}). \code{col} defines the width of characters
     (\code{\link{nchar}}) for splitting horizontally, \code{row} sets the vertical split.
   }

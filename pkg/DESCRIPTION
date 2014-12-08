@@ -16,3 +16,4 @@ Collate: csv2txt.R
          replaceTaxon.R
          splitArray.R
          trimTaxon.R
+         join.R

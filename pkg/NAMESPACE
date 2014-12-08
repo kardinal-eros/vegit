@@ -3,5 +3,6 @@ export(
     "extractTaxon",
     "replaceTaxon",
     "splitArray",
-    "trimTaxon"
+    "trimTaxon",
+    "join"
 )
