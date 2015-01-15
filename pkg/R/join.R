@@ -2,7 +2,10 @@ join <- function (x, y, make.names = TRUE) {
 	j <- match(c("taxon", "matched.taxon"), names(x))
 	stopifnot(length(j) == 2)
 	x <- x[, j]
-	stopifnot(nrow(unique(x)) == nrow(x))
+	if (nrow(unique(x)) == nrow(x)) {
+		error <- x[duplicated(x), ]
+		stop("duplicates found\n", error, call. = FALSE)
+	}	
 	
 	j <- match(c("abbr", "taxon"), names(y))
 	stopifnot(length(j) == 2)
