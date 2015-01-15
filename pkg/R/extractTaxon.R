@@ -8,6 +8,12 @@ extractTaxon <- function (x, col, row, blank = "blank") {
 	x <- x[row:(length(x))]
 	x <- str_trim(x)
 	x[x == ""] <- blank
+
+	#	skip keywords, if present
+	i <- c("BEGIN HEADER", "END HEADER", "BEGIN TABLE", "END TABLE")
+	i <- unlist(sapply(i, grep, x))
+	
+	if (length(i) > 0)	x <- x[-i[length(i) > 0]]
 	if (any(is.na(x)))
 		stop("NAs introduced")
 	else	

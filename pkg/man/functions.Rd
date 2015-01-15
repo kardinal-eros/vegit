@@ -134,7 +134,7 @@ places the keywords searched by \code{read.verbatim} of package \pkg{vegsoup}.
 }
 
 \item{ \code{extractTaxon} }{
-extracts species from text array.
+extracts species from text array. The function will remove keywords (see \sQuote{Argumnets}) if present.
 }
 
 }
