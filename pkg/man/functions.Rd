@@ -148,6 +148,8 @@ Depending on the function.
 
 \examples{
 # Nothing here yet
+#	file <- file.path(path, "foo.txt")
+#	extractTaxon(readLines(file), 30, 10)
 }
 
 \keyword{ manip }
