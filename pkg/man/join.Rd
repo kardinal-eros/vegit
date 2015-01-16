@@ -9,22 +9,30 @@
 }
 
 \usage{
-join(x, y, make.names = TRUE)
+join(x, y, schema = list(x = c("taxon", "matched.taxon"), y = c("abbr", "taxon")), make.names = TRUE)
 }
 
 \arguments{
   \item{ x }{
-    \code{data.frame}.
+    \code{data.frame}. Table to be matched against (argument \code{y}).
   }
   \item{ y }{
-    \code{data.frame}.}
+    \code{data.frame}. Table were matches of \code{x} are sought.
+  }
+  \item{ schema }{
+    \code{list}. List with column names to be searched for.
+  }
   \item{ make.names }{
-    \code{logical}.}
+    \code{logical}. See \code{\link{make.names}}.
+  }
 
 }
 
-\details{
-  Nothing here yet!
+\details{    
+  \tabular{ll}{
+  taxon \tab abbr \cr
+  matched.taxon \tab taxon \cr
+  }
 }
 
 \value{
