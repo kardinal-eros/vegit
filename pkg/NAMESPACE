@@ -1,5 +1,6 @@
 importFrom("sp", "char2dms")
 importFrom("stringr", "str_trim", "str_pad")
+importFrom("vegsoup", "Layers")
 
 export(
     "csv2txt",
@@ -8,5 +9,6 @@ export(
     "splitArray",
     "trimTaxon",
     "join",
-    "char2dd"
+    "char2dd",
+    "turbovegLayers"
 )
