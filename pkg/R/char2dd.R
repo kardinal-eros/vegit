@@ -3,6 +3,7 @@
 char2dd <- function (x, chd = "\u00B0", chm = "\"", chs = "\"\"", NS = TRUE) {
 	#	convert to default of char2dms in package sp
 	#	gsub will instantly convert to character if it is not already
+	x <- gsub("^\\s+|\\s+$", "", x)      # trim both ends
 	x <- gsub(",", ".", x, fixed = TRUE) # decimals	
 	x <- gsub(chd, "d", x, fixed = TRUE) # degree
 	x <- gsub(chm, "'", x, fixed = TRUE) # minutes
