@@ -31,7 +31,7 @@ char2dd(x, chd = "°", chm = "\"", chs = "\"\"", NS = TRUE)
 }
 
 \details{
-Argument \code{x} may be composed of mixed \emph{dms} and \emph{dd} values. Quotation marks need to be escaped (\emph{"} \code{"\""}).
+Argument \code{x} may be composed of mixed \emph{dms} and \emph{dd} values. Quotation marks need to be escaped (\emph{"} \code{"\""}). The function replaces the decimals as comma to dot.
 }
 
 \value{
