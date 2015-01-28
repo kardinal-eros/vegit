@@ -1,6 +1,6 @@
 importFrom("sp", "char2dms")
 importFrom("stringr", "str_trim", "str_pad")
-importFrom("vegsoup", "Layers")
+importFrom("vegsoup", "layers")
 
 export(
     "csv2txt",
