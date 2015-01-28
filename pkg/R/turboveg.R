@@ -9,7 +9,7 @@ turbovegLayers <- function (x, no.layer = "0l") {
 	ll <- data.frame(code = l1, value = l2,
 		stringsAsFactors = FALSE)
 	
-	l <- Layers(x)
+	l <- layers(x)
 	
 	l <- ll[match(l, ll$code), ]
 	r <- layers(x, collapse = l$value)
