@@ -1,9 +1,7 @@
-replaceTaxonRepository <- function (x, y, dir) {
+#	undocumented and unexported experimatal fucntions
+.replaceTaxonRepository <-
+function (x, y, dir) {
 	if (missing(x) | missing(y)) stop
-#	x <- "aven flex"
-#	y <- "aven flex flex"
-#	xx <- paste("\"", x, "\"", sep = "")
-#	yy <- paste("\"", y, "\"", sep = "")
 	xx <- as.character(x)
 	yy <- as.character(y)
 	
@@ -15,7 +13,7 @@ replaceTaxonRepository <- function (x, y, dir) {
 		#	cat("apply changes to all folders")
 		dirs <- dir
 	}
-
+	
 	for (i in dirs) {
 		#	i = dirs[1]
 		f <- paste(i, "/species.csv", sep = "")
@@ -39,4 +37,33 @@ replaceTaxonRepository <- function (x, y, dir) {
 			}
 		}
 	}
+}
+	
+.replace <-
+function (path, rpl) {
+	#	full data set replacement
+	path <- list.files(path, full.names = TRUE)
+	rpl <- matrix(rpl, ncol = length(rpl)) # c("dryo vill", "dryo vill vill")
+	
+	for (j in path) {
+		for (i in 1:nrow(rpl)) {
+			x <- rpl[i, 1]
+			y <- rpl[i, 2]
+			replaceTaxonRepository(x, y, dir = path)
+		}
+	}
+	
+	#	folder wise replacement
+	#	the folder
+	path <- "~/Documents/vegsoup-data/weißkirchen dta"
+	#	the day
+	day <- "2013-05-29"
+	#	file with instucions
+	file <- paste(path, "/recode ", day, ".txt", sep = "")	
+	#	recode2013-05-29.txt
+	
+	rpl <- as.matrix(read.delim(file, colClasses = "character", header = FALSE))
+	
+	#	check spaces!
+	rpl
 }
