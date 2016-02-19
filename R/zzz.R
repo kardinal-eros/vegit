@@ -49,7 +49,7 @@ function (path, rpl) {
 		for (i in 1:nrow(rpl)) {
 			x <- rpl[i, 1]
 			y <- rpl[i, 2]
-			replaceTaxonRepository(x, y, dir = path)
+			.replaceTaxonRepository(x, y, dir = path)
 		}
 	}
 	
