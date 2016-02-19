@@ -55,7 +55,7 @@ function (path, rpl) {
 	
 	#	folder wise replacement
 	#	the folder
-	path <- "~/Documents/vegsoup-data/weißkirchen dta"
+	path <- "."
 	#	the day
 	day <- "2013-05-29"
 	#	file with instucions

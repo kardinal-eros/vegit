@@ -25,7 +25,8 @@
 }
 
 \usage{
-csv2txt(x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE, collapse = " ", overwrite = FALSE, ...)
+csv2txt(x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE,
+        collapse = " ", overwrite = FALSE, ...)
 
 extractTaxon(x, col, row, blank = "blank")
 

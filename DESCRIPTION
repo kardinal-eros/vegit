@@ -7,7 +7,7 @@ Author: Roland Kaiser
 Maintainer: Roland Kaiser <kardinal.eros@gmail.com>
 Depends: R (>= 3.0.1), stringr
 Imports: sp, vegsoup
-Description: Functions to maintain, extend and create data inside the vegsoup-data repository (https://github.com/kardinal-eros/vegsoup-data)
+Description: Functions to maintain, extend and create data inside the vegsoup-data repository (https://github.com/kardinal-eros/vegsoup-data). The package also provides utility function for the processing of scanned vegetation tabels.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyLoad: yes

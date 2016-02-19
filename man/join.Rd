@@ -9,7 +9,8 @@
 }
 
 \usage{
-join(x, y, schema = list(x = c("taxon", "matched.taxon"), y = c("abbr", "taxon")), make.names = TRUE)
+join(x, y, schema = list(x = c("taxon", "matched.taxon"),
+     y = c("abbr", "taxon")), make.names = TRUE)
 }
 
 \arguments{
