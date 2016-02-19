@@ -2,7 +2,7 @@
 
 \alias{join}
 
-\title{ Join data }
+\title{ Join Taxonomy }
 
 \description{
   Join abbreviations form a taxonomic reference list.
@@ -29,7 +29,9 @@ join(x, y, schema = list(x = c("taxon", "matched.taxon"),
 
 }
 
-\details{    
+\details{
+  This function can be used to query abbreviatiosn found in a reference list to
+  a table of taxonomic relations.
   \tabular{ll}{
   taxon \tab abbr \cr
   matched.taxon \tab taxon \cr
