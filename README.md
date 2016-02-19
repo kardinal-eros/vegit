@@ -20,7 +20,7 @@ install.packages("devtools")
 
 library(devtools)
 
-install_github("kardinal-eros/vegit/pkg")
+install_github("kardinal-eros/vegit")
 
 library(vegit)
 ```
