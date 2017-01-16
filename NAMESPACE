@@ -1,6 +1,9 @@
+importFrom("utils", "read.csv", "read.csv2", "read.delim",
+           "type.convert", "write.csv2")
 importFrom("sp", "char2dms")
 importFrom("stringr", "str_trim", "str_pad")
-importFrom("vegsoup", "layers")
+importFrom("vegsoup", "layers", "taxon", "combine")
+importFrom("linktaxa", "groupSensuLato")
 
 export(
     "csv2txt",
@@ -10,5 +13,6 @@ export(
     "trimTaxon",
     "join",
     "char2dd",
-    "turbovegLayers"
+    "turbovegLayers",
+    "combineSensuLato"
 )
