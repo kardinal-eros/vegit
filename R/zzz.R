@@ -1,4 +1,4 @@
-#	undocumented and unexported experimatal fucntions
+#	undocumented and unexported experimatal functions
 .replaceTaxonRepository <-
 function (x, y, dir) {
 	if (missing(x) | missing(y)) stop
