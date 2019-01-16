@@ -52,6 +52,7 @@ function (x) {
 			}
 		}
 	}
+
 	#	rbind
 	m <- c()
 	for (i in 1:nrow(v)) {
@@ -108,7 +109,11 @@ function (x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE, col
 	
 	#	transform header or plot identifier if present
 	if (vertical) {
-		h <- .vertical(x[ n, , drop = FALSE])
+		if (n > 0) {
+			h <- .vertical(x[ 1:n, , drop = FALSE])
+		} else {
+			h <- .vertical(x[ n, , drop = FALSE])
+		}
 	}
 	if (!vertical) {
 		h <- .horizontal(h, width)
@@ -123,7 +128,7 @@ function (x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE, col
 	#	combine with header if present, result (r) to be returned by function
 	if (n > 0) {
 	r <- rbind(h, v)
-	r <- t <- as.data.frame(r, stringsAsFactors = FALSE, row.names = 1:nrow(m))
+	r <- t <- as.data.frame(r, stringsAsFactors = FALSE, row.names = 1:nrow(r))
 	}
 	
 	#	format width of first column
