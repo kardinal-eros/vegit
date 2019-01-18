@@ -57,7 +57,7 @@ trimTaxon(x, pad = "@hl", sep = ";")
   }
   \item{ header.rows }{
     \code{integer}. Like above, the number of rows the header part claims
-    in the table.
+    in the table. Note, if the table has no header data, specify \code{header.rows = 0}.
   }
   \item{ merge.cols }{
     \code{integer}. Merge two or more columns into one (experimental!).

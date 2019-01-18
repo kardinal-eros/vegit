@@ -69,24 +69,27 @@ function (x) {
 
 csv2txt <-
 function (x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE, collapse = " ", overwrite = FALSE, ...) {
-	if (missing(header.rows))
+	if (missing(header.rows)) {
 		stop("please define the number of header rows", call. = FALSE)
-	else
+	} else {
 		n <- as.integer(header.rows)
-	
-	if (!missing(merge.cols))
+		stopifnot(n >= 0)
+	}
+	if (!missing(merge.cols)) {
 		j <- as.vector(merge.cols)
-	else
+	} else {
 		j <- 1
-	
-	if (!vertical & missing(width))
+	}
+	if (!vertical & missing(width)) {
 		stop("must define with if verital = FALSE")
+	}
 	
 	#	output filename
 	f <- gsub(".csv", ".txt", x, fixed = TRUE)
-	if (file.exists(f) & !overwrite)
+	if (file.exists(f) & !overwrite) {
 		stop("output file with txt extension exits:\n", f,
 			"\nuse overwrite = TRUE", call. = FALSE)
+	}
 	
 	#	read file
 	x <- read.csv(x, sep = sep, colClasses = "character", header = FALSE)
@@ -100,43 +103,41 @@ function (x, header.rows, merge.cols, sep = ";", width = 1, vertical = TRUE, col
 	
 	#	taxa block
 	#	with or without header
-	if (n > 0) {
-		h <- as.matrix(x[  c(1:n), ])
-		v <- as.matrix(x[ -c(1:n), ])
-	} else {
-		v <- as.matrix(x[ -1, ]) # read.csv(..., header = FALSE)
-	}
+	h <- as.matrix(x[  c(1:n), ])
+	v <- as.matrix(x[ -c(1:n), ])
 	
 	#	transform header or plot identifier if present
 	if (vertical) {
 		if (n > 0) {
-			h <- .vertical(x[ 1:n, , drop = FALSE])
+			h <- .vertical(x[ 1:n, , drop = FALSE ])
 		} else {
-			h <- .vertical(x[ n, , drop = FALSE])
+			h <- .vertical(x[ n, , drop = FALSE ])
 		}
 	}
 	if (!vertical) {
-		h <- .horizontal(h, width)
-		v <- .horizontal(v, width)
+		if (n > 0) {
+			h <- .horizontal(h, width)
+		} else {
+			h <- t(.horizontal(h, width))
+		}
 	}
 	
 	#	there may be empty rows seperating blocks?
-	b <- v[,1] == ""
-	v[v == ""] <- "."
-	v[b, ] <- ""
+	b <- v[ ,1 ] == ""
+	v[ v == "" ] <- "."
+	v[ b, ] <- ""
 	
 	#	combine with header if present, result (r) to be returned by function
-	if (n > 0) {
 	r <- rbind(h, v)
+
 	r <- t <- as.data.frame(r, stringsAsFactors = FALSE, row.names = 1:nrow(r))
-	}
 	
-	#	format width of first column
-	t[, 1] <- sprintf(paste0("%-", max(sapply(x, nchar)) + 1, "s"), t[, 1])
+	#	format width of first column, the species names
+	t[, 1] <- sprintf(paste0("%-", max(sapply(x, nchar)) + 1, "s"), t[ ,1 ])
 
 	#	format width of remaining columns
 	for (i in 2:ncol(t)) {
-		t[, i] <- sprintf(paste0("%", width, "s"), t[, i])
+		t[ , i ] <- sprintf(paste0("%", width, "s"), t[ ,i ])
 	}
 	
 	#	save matrix as text
