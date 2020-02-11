@@ -4,13 +4,13 @@ join <- function (x, y, schema = list(x = c("taxon", "matched.taxon"), y = c("ab
 	# y$abbr equals y[[schema[[2]][1]]]
 	# y$taxon equals y[[schema[[2]][2]]]
 	
-	j <- match(schema[[1]], names(x))
+	j <- match(schema[[ 1 ]], names(x))
 	stopifnot(length(j) == 2)
-	x <- x[, j]
+	x <- x[ , j ]
 	
-	j <- match(schema[[2]], names(y))
+	j <- match(schema[[ 2 ]], names(y))
 	stopifnot(length(j) == 2)
-	y <- y[, j]
+	y <- y[ , j ]
 	
 	test <- is.na(x)
 	if (any(test)) {
@@ -22,23 +22,22 @@ join <- function (x, y, schema = list(x = c("taxon", "matched.taxon"), y = c("ab
 	}
 	
 	if (nrow(unique(x)) != nrow(x)) {
-		error <- x[duplicated(x), ]
+		error <- x[ duplicated(x), ]
 		stop("duplicates found\n",
 			apply(error, 1, paste, collapse = ": "), call. = FALSE)
 	}	
 	
-	i <- match(x[[schema[[1]][2]]], y[[schema[[2]][2]]])
+	i <- match(x[[schema[[1]][2]]], y[[ schema[[ 2 ]][ 2 ]] ])
 	if (any(is.na(i))) {
-		error <- "unmatched elements"
-		 x[[schema[[1]][2]]][is.na(i)]
-		stop()		
+		error <- paste("unmatched elements:", x[[ schema[[ 1 ]][ 2 ]] ][ is.na(i) ])
+		stop(error, call. = FALSE)		
 	}
-	x$abbr <- y[[schema[[2]][1]]][match(x[[schema[[1]][2]]], y[[schema[[2]][2]]])]
+	x$abbr <- y[[ schema[[ 2 ]][ 1 ]] ][ match(x[[ schema[[ 1 ]][ 2 ]] ], y[[ schema[[ 2 ]][ 2 ]] ])]
 	
 	if (make.names) {
 		x$abbr <- make.names(x$abbr)
-		x[[schema[[1]][2]]] <- make.names(x[[schema[[1]][2]]])
-		x[[schema[[1]][1]]] <- make.names(x[[schema[[1]][1]]])
+		x[[ schema[[ 1 ]][ 2 ]] ] <- make.names(x[[ schema[[ 1 ]][ 2 ]] ])
+		x[[ schema[[ 1 ]][ 1 ]] ] <- make.names(x[[ schema[[ 1 ]][ 1 ]] ])
 	}
 	
 	return(x)
